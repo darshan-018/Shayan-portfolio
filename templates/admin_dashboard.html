@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+
+</head>
+<body class="bg-[#0B0F19] text-gray-200 min-h-screen flex">
+
+<!-- SIDEBAR -->
+<aside class="p-6 space-y-8">
+  <div>
+    <h1 class="text-2xl font-bold text-emerald-400">Admin Panel</h1>
+    <p class="text-xs text-gray-400 mt-1">Content Management</p>
+  </div>
+
+  <nav class="space-y-3">
+    <button class="block px-4 py-2 rounded-lg text-emerald-400 nav-btn" data-section="dashboard">Dashboard</button>
+    <button class="block px-4 py-2 rounded-lg text-gray-200 nav-btn" data-section="videos">Videos</button>
+    <button class="block px-4 py-2 rounded-lg text-gray-200 nav-btn" data-section="feedback">Feedback</button>
+    <button class="block px-4 py-2 rounded-lg text-gray-200 nav-btn" data-section="contacts">Contacts</button>
+  </nav>
+
+  <a href="/logout" class="block text-red-400 hover:text-red-500 text-sm">Logout</a>
+</aside>
+
+<!-- MAIN -->
+<main class="flex-1 space-y-12" data-active-section="{{ active_section }}">
+
+
+  <!-- DASHBOARD SECTION -->
+<section id="dashboard" class="visible-section">
+  <h2 class="text-3xl font-semibold mb-4">Dashboard Overview</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <!-- STATS CARDS -->
+    <div class="grid grid-cols-2 gap-6">
+      <div class="bg-gradient-to-br from-emerald-500/20 to-emerald-500/5 rounded-2xl p-6">
+        <p class="text-sm text-gray-400">Total Videos</p>
+        <p class="text-3xl font-bold text-white">{{ videos|length }}</p>
+      </div>
+      <div class="bg-gradient-to-br from-blue-500/20 to-blue-500/5 rounded-2xl p-6">
+        <p class="text-sm text-gray-400">Pending Feedback</p>
+        <p class="text-3xl font-bold">{{ pending_feedbacks|length }}</p>
+      </div>
+      <div class="bg-gradient-to-br from-yellow-500/20 to-yellow-500/5 rounded-2xl p-6">
+        <p class="text-sm text-gray-400">Approved Feedback</p>
+        <p class="text-3xl font-bold">{{ approved_feedbacks|length }}</p>
+      </div>
+      <div class="bg-gradient-to-br from-red-500/20 to-red-500/5 rounded-2xl p-6">
+        <p class="text-sm text-gray-400">Contact Enquiries</p>
+        <p class="text-3xl font-bold">{{ contacts|length }}</p>
+      </div>
+    </div>
+
+    <!-- CHART -->
+    <div class="bg-[#111827] border border-gray-800 rounded-2xl p-6">
+      <h3 class="text-xl font-semibold mb-4">Platform Overview</h3>
+      <canvas id="dashboardChart" class="w-full h-64"></canvas>
+    </div>
+  </div>
+
+
+  <!-- TODO SECTION -->
+<div class="bg-[#111827] border border-gray-800 rounded-2xl p-6">
+  <h3 class="text-xl font-semibold mb-4">Admin To-Do</h3>
+
+  <!-- Add Task -->
+  <form action="{{ url_for('add_todo') }}" method="POST" class="flex gap-2 mb-4">
+    <input type="text" name="task" placeholder="Enter new task" class="input flex-1" required>
+    <button type="submit" class="bg-emerald-500 hover:bg-emerald-600 text-black px-4 rounded-lg font-semibold">Add</button>
+  </form>
+
+  <!-- Task Table -->
+  <table class="w-full text-sm text-gray-200 table-auto border-collapse">
+    <thead class="text-gray-400 border-b border-gray-800">
+      <tr>
+        <th class="p-3 text-left">Task</th>
+        <th class="p-3 text-left">Created At</th>
+        <th class="p-3 text-left">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in todos %}
+      <tr class="border-b border-gray-800 hover:bg-white/5">
+        <td class="p-3">{{ t.task }}</td>
+        <td class="p-3">{{ t.created_at }}</td>
+        <td class="p-3">
+          <form action="{{ url_for('delete_todo', id=t.id) }}" method="POST" onsubmit="return confirm('Delete this task?');">
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded text-sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+</section>
+
+  <!-- VIDEOS SECTION -->
+  <section id="videos" class="hidden-section">
+    <h2 class="text-3xl font-semibold mb-4">Manage Videos</h2>
+
+    <!-- ADD VIDEO -->
+    <div class="bg-[#111827] border border-gray-800 rounded-2xl p-8 mb-6">
+      <h3 class="text-xl font-semibold mb-6">Add New Video</h3>
+      <form method="POST" action="/add-video" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input name="title" placeholder="Video title"  class="input" />
+        <select name="category" required class="input">
+          <option value="wedding">Wedding</option>
+          <option value="events">Events</option>
+          <option value="reels">Reels</option>
+          <option value="housewarming">House Warming</option>
+        </select>
+        <input name="youtube_input" placeholder="YouTube link or embed code"  class="input col-span-2" />
+        <textarea name="description" placeholder="Description"  class="input col-span-2"></textarea>
+        <button class="bg-emerald-500 hover:bg-emerald-600 text-black py-2 rounded-lg col-span-2 font-semibold">Add Video</button>
+      </form>
+    </div>
+
+    <!-- VIDEO CATEGORY FILTER -->
+    <div class="flex gap-3 mb-6">
+      <button class="admin-cat-btn bg-gray-700 px-4 py-1 rounded" data-category="all">All</button>
+      <button class="admin-cat-btn bg-gray-700 px-4 py-1 rounded" data-category="wedding">Wedding</button>
+      <button class="admin-cat-btn bg-gray-700 px-4 py-1 rounded" data-category="events">Events</button>
+      <button class="admin-cat-btn bg-gray-700 px-4 py-1 rounded" data-category="reels">Reels</button>
+      <button class="admin-cat-btn bg-gray-700 px-4 py-1 rounded" data-category="housewarming">House Warming</button>
+    </div>
+
+    <!-- VIDEOS LIST -->
+    <div>
+      {% for v in videos %}
+      <div class="admin-video bg-gray-900 p-4 mb-4 rounded flex gap-4 items-center" data-category="{{ v[1] }}">
+        <!-- THUMBNAIL -->
+        <a href="https://www.youtube.com/watch?v={{ v[3] }}" target="_blank"
+           class="relative block w-40 h-24 rounded overflow-hidden group">
+          <img src="https://img.youtube.com/vi/{{ v[3] }}/hqdefault.jpg"
+               alt="{{ v[2] }}"
+               class="w-full h-full object-cover group-hover:scale-105 transition">
+          <div class="absolute inset-0 flex items-center justify-center bg-black/40">
+            <svg class="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+        </a>
+
+        <!-- INFO -->
+        <div class="flex-1">
+          <b class="block">{{ v[2] }}</b>
+          <p class="text-sm text-gray-400 mt-1">{{ v[4] }}</p>
+          <p class="text-xs text-gray-500 mt-1">Category: {{ v[1] }}</p>
+        </div>
+
+        <!-- DELETE -->
+        <a href="{{ url_for('delete_video', id=v[0]) }}"
+           class="text-red-400 text-sm"
+           onclick="return confirm('Delete this video?')">
+          Delete
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+<!-- FEEDBACK SECTION -->
+<section id="feedback" class="hidden-section">
+  <h2 class="text-3xl font-semibold mb-4">Pending Feedback</h2>
+  <div class="bg-[#111827] border border-gray-800 rounded-2xl overflow-x-auto mb-8">
+    <table class="w-full text-sm text-gray-200 table-auto border-collapse">
+      <thead class="text-gray-400 border-b border-gray-800">
+        <tr>
+          <th class="p-3 text-left">Name</th>
+          <th class="p-3 text-left">Description</th>
+          <th class="p-3 text-left">Rating</th>
+          <th class="p-3 text-left">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for f in pending_feedbacks %}
+        <tr class="border-b border-gray-800 hover:bg-white/5">
+          <td class="p-3">{{ f.name }}</td>
+          <td class="p-3">{{ f.description }}</td>
+          <td class="p-3">{{ f.rating }}★</td>
+          <td class="p-3">
+            <a href="{{ url_for('approve_feedback', feedback_id=f.id) }}" class="text-emerald-400 hover:underline">Approve</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- APPROVED FEEDBACK -->
+  <h2 class="text-3xl font-semibold mb-4">Approved Feedback</h2>
+  <div class="bg-[#111827] border border-gray-800 rounded-2xl overflow-x-auto">
+    <table class="w-full text-sm text-gray-200 table-auto border-collapse">
+      <thead class="text-gray-400 border-b border-gray-800">
+        <tr>
+          <th class="p-3 text-left">Name</th>
+          <th class="p-3 text-left">Description</th>
+          <th class="p-3 text-left">Rating</th>
+          <th class="p-3 text-left">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for f in approved_feedbacks %}
+        <tr class="border-b border-gray-800 hover:bg-white/5">
+          <td class="p-3">{{ f.name }}</td>
+          <td class="p-3">{{ f.description }}</td>
+          <td class="p-3">{{ f.rating }}★</td>
+          <td class="p-3">
+            <a href="{{ url_for('delete_feedback', feedback_id=f.id) }}" class="text-red-500 hover:underline"
+               onclick="return confirm('Delete this feedback?');">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+  <!-- CONTACTS SECTION -->
+  <!-- CONTACTS SECTION -->
+<section id="contacts" class="hidden-section">
+  <h2 class="text-3xl font-semibold mb-4">Contact Enquiries</h2>
+  <div class="bg-[#111827] border border-gray-800 rounded-2xl p-6 overflow-x-auto">
+    <table class="w-full text-sm text-gray-200 border-collapse">
+      <thead class="text-gray-400 border-b border-gray-800">
+        <tr>
+          <th class="p-3 text-left">Name</th>
+          <th class="p-3 text-left">Phone</th>
+          <th class="p-3 text-left">Email</th>
+          <th class="p-3 text-left">Category</th>
+          <th class="p-3 text-left">Date</th>
+          <th class="p-3 text-left">Message</th>
+          <th class="p-3 text-left">Payment</th>
+          <th class="p-3 text-left">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in contacts %}
+        <tr class="border-b border-gray-800 hover:bg-white/5">
+          <td class="p-3">{{ c['name'] }}</td>
+          <td class="p-3">{{ c['phone'] }}</td>
+          <td class="p-3">{{ c['email'] }}</td>
+          <td class="p-3">{{ c['category'] }}</td>
+          <td class="p-3">{{ c['date'] }}</td>
+          <td class="p-3">{{ c['message'] }}</td>
+          <td class="p-3">
+            <select name="payment_status_{{ c['id'] }}" class="bg-gray-800 border border-gray-700 text-gray-200 rounded px-2 py-1 text-sm">
+              <option value="paid" {% if c['payment'] == 'paid' %}selected{% endif %}>Paid</option>
+              <option value="partial" {% if c['payment'] == 'partial' %}selected{% endif %}>Partial</option>
+              <option value="not_paid" {% if c['payment'] == 'not_paid' %}selected{% endif %}>Not Paid</option>
+            </select>
+          </td>
+          <td class="p-3">
+            <form action="{{ url_for('delete_contact', contact_id=c['id']) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this contact?');">
+              <button type="submit" class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded text-sm">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+</main>
+
+<script src="{{ url_for('static', filename='admin.js') }}"></script>
+
+<script>
+  const ctx = document.getElementById('dashboardChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Videos', 'Pending Feedback', 'Approved Feedback', 'Contacts'],
+      datasets: [{
+        label: 'Count',
+        data: [{{ videos|length }}, {{ pending_feedbacks|length }}, {{ approved_feedbacks|length }}, {{ contacts|length }}],
+        backgroundColor: [
+          'rgba(16, 185, 129, 0.7)',
+          'rgba(59, 130, 246, 0.7)',
+          'rgba(234, 179, 8, 0.7)',
+          'rgba(239, 68, 68, 0.7)'
+        ],
+        borderColor: [
+          'rgba(16, 185, 129, 1)',
+          'rgba(59, 130, 246, 1)',
+          'rgba(234, 179, 8, 1)',
+          'rgba(239, 68, 68, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        title: { display: true, text: 'Platform Stats' }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { stepSize: 1 }
+        }
+      }
+    }
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>

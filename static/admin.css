@@ -1,0 +1,29 @@
+   body { font-family: Inter, system-ui, sans-serif; }
+
+    /* Sidebar fixed with backdrop */
+    aside {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 16rem; /* 64 tailwind */
+      backdrop-filter: blur(10px);
+      background-color: rgba(15, 23, 42, 0.7);
+      z-index: 50;
+    }
+
+    main {
+      margin-left: 16rem;
+      padding: 2.5rem;
+    }
+
+    .hidden-section { display: none; opacity: 0; transition: opacity 0.5s ease; }
+    .visible-section { display: block; opacity: 1; }
+
+    .input {
+      background:#020617;
+      border:1px solid #1f2937;
+      border-radius:0.5rem;
+      padding:0.5rem 0.75rem;
+    }
+    .input:focus { outline:none; border-color:#34d399; }

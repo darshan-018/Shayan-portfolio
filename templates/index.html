@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Portfolio</title>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Flatpickr -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+<nav class="fixed w-full bg-white/30 backdrop-blur-md dark:bg-gray-900/30 shadow z-50">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+
+    <!-- LOGO -->
+    <a href="#" class="flex items-center space-x-3">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+      </svg>
+      <span class="text-xl font-bold text-white dark:text-emerald-400">
+        Shayan CS
+      </span>
+    </a>
+
+    <!-- CHECKBOX -->
+    <input type="checkbox" id="menu-toggle" />
+
+    <!-- HAMBURGER -->
+    <label for="menu-toggle" class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <!-- MENU -->
+    <div class="flex items-center space-x-6 text-white">
+      <a href="#why-choose-me" class="hover:text-emerald-300">About</a>
+      <a href="#projects" class="hover:text-emerald-300">Projects</a>
+      <a href="#contact" class="hover:text-emerald-300">Contact</a>
+    </div>
+
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="relative h-screen flex items-center overflow-hidden bg-fixed bg-center bg-cover "
+  style="background-image:url('/static/images/image1.jpg');">
+
+  <div class="absolute inset-0 bg-black/60"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+
+    <div data-aos="fade-right">
+      <h1 class="glitch text-5xl md:text-6xl font-extrabold leading-tight text-white"
+        data-text="PROFESSIONAL VIDEO EDITOR">
+        PROFESSIONAL <br>
+        <span class="text-emerald-400">VIDEO EDITOR</span>
+      </h1>
+
+      <h2 class="mt-6 text-2xl font-semibold text-emerald-400">Shayan CS</h2>
+      <!-- <p class="mt-2 text-gray-300 italic">Based in Kundapura</p> -->
+
+      <p class="mt-6 text-lg text-gray-200 max-w-xl">
+        Transforming raw footage into cinematic masterpieces with precision,
+        creativity, and storytelling excellence.
+      </p>
+
+      <div class="mt-8 flex gap-4">
+        <a href="#projects" class="bg-emerald-400 text-black px-6 py-3 rounded font-semibold hover:bg-emerald-300 transition">
+          View My Work →
+        </a>
+        <a href="#contact" class="border border-white text-white px-6 py-3 rounded hover:bg-white hover:text-black transition">
+          Contact Now
+        </a>
+      </div>
+    </div>
+
+    <div class="relative hidden md:block" data-aos="fade-left">
+      <img src="https://images.unsplash.com/photo-1629904853716-f0bc54eea481"
+        class="rounded-xl shadow-2xl animate-float" alt="Video Editor">
+    </div>
+
+  </div>
+</section>
+<!-- ==========================  ABOUT ME SECTION ========================== -->
+<section id="about" class="about-section relative text-white overflow-hidden">
+  <!-- Parallax Background -->
+  <div class="about-bg absolute inset-0 z-0 brightness-60"></div>
+
+  <div class="max-w-7xl mx-auto px-6 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-24">
+    <!-- LEFT: IMAGE -->
+    <div class="about-image relative">
+      <img src="https://images.unsplash.com/photo-1629904853716-f0bc54eea481" alt="Darshan - Editor" class="rounded-xl shadow-2xl hover:scale-105 transition-transform duration-500 animate-float">
+    </div>
+
+    <!-- RIGHT: ABOUT TEXT -->
+    <div class="about-text space-y-6">
+     <h2 class="about-glitch text-4xl md:text-6xl font-extrabold leading-tight text-white"
+    data-text="About Me">
+  About Me
+</h2>
+
+      <p class="text-gray-300 text-lg md:text-xl leading-relaxed animate-fadeIn">
+        Hey! I’m <span class="text-white-400 font-bold">Shayan CS</span>, an experienced <span class="text-white-400 font-bold">Editor</span> based in <span class="text-white-400 font-bold">Udupi</span>. I specialize in transforming raw content into polished, engaging pieces, ensuring your message shines through with clarity and creativity.
+      </p>
+
+      <p class="text-gray-400 text-base md:text-lg leading-relaxed animate-fadeIn delay-200">
+        With a passion for storytelling and meticulous attention to detail, I bring words to life and enhance the flow of every project I work on. Whether it’s articles, scripts, or digital content, I ensure every piece is error-free, captivating, and on point.
+      </p>
+
+      <a href="#contact" class=" category-btn neon-btn inline-block mt-4 animate-bounce">
+        Hire Me
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY CHOOSE ME ================= -->
+
+<section id="why-choose-me" class="relative py-20 overflow-hidden text-neon min-h-[600px]">
+
+ <!-- Background Image with Black Overlay -->
+  <div class="absolute inset-0">
+    <!-- Image -->
+    <div class="absolute inset-0 bg-fixed bg-center bg-cover brightness-70"
+         style="background-image:url('/static/images/image1.jpg');">
+    </div>
+    <!-- Black overlay -->
+    <div class="absolute inset-0 bg-black/60"></div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-6 text-center relative z-10">
+    <h2 class="about-glitch text-5xl font-bold mb-3" data-aos="fade-up" data-aos-duration="800">Why To Choose Me</h2>
+    <div class="w-20 h-1 mx-auto bg-emerald-400 mb-16 rounded" data-aos="fade-up" data-aos-delay="150" data-aos-duration="800"></div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
+
+      <!-- Cards here (unchanged) -->
+      <!-- Card 1 -->
+      <div class="bg-black/60 p-8 rounded-lg border border-gray-700 shadow-lg shadow-black/60 hover:shadow-emerald-500 transition-shadow duration-300" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
+        <div class="w-14 h-14 mb-6 flex items-center justify-center bg-emerald-700 rounded-md text-white mx-auto animate-fade-in">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        </div>
+        <h3 class="text-xl font-semibold text-white mb-3 animate-fade-up">Attention to Detail</h3>
+        <p class="text-gray-300 animate-fade-up delay-150">Every frame is carefully crafted to ensure perfection in timing, transitions, and visual appeal.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-black/60 p-8 rounded-lg border border-gray-700 shadow-lg shadow-black/60 hover:shadow-emerald-500 transition-shadow duration-300" data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
+        <div class="w-14 h-14 mb-6 flex items-center justify-center bg-emerald-700 rounded-md text-white mx-auto animate-fade-in">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
+        </div>
+        <h3 class="text-xl font-semibold text-white mb-3 animate-fade-up">Timely Delivery</h3>
+        <p class="text-gray-300 animate-fade-up delay-150">Projects delivered on time without compromising quality.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-black/60 p-8 rounded-lg border border-gray-700 shadow-lg shadow-black/60 hover:shadow-emerald-500 transition-shadow duration-300" data-aos="fade-up" data-aos-delay="400" data-aos-duration="800">
+        <div class="w-14 h-14 mb-6 flex items-center justify-center bg-emerald-700 rounded-md text-white mx-auto animate-fade-in">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 2H9a2 2 0 00-2 2v16a2 2 0 002 2h10a2 2 0 002-2V4a2 2 0 00-2-2zM9 4h10v2H9V4z"/></svg>
+        </div>
+        <h3 class="text-xl font-semibold text-white mb-3 animate-fade-up">Creative Storytelling</h3>
+        <p class="text-gray-300 animate-fade-up delay-150">Transforming footage into compelling narratives that engage your audience.</p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="bg-black/60 p-8 rounded-lg border border-gray-700 shadow-lg shadow-black/60 hover:shadow-emerald-500 transition-shadow duration-300" data-aos="fade-up" data-aos-delay="500" data-aos-duration="800">
+        <div class="w-14 h-14 mb-6 flex items-center justify-center bg-emerald-700 rounded-md text-white mx-auto animate-fade-in">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M11 5v14l-6-6H2"/></svg>
+        </div>
+        <h3 class="text-xl font-semibold text-white mb-3 animate-fade-up">Audio Enhancement</h3>
+        <p class="text-gray-300 animate-fade-up delay-150">Crisp and clear audio mixing to complement the visual story perfectly.</p>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="bg-black/60 p-8 rounded-lg border border-gray-700 shadow-lg shadow-black/60 hover:shadow-emerald-500 transition-shadow duration-300" data-aos="fade-up" data-aos-delay="600" data-aos-duration="800">
+        <div class="w-14 h-14 mb-6 flex items-center justify-center bg-emerald-700 rounded-md text-white mx-auto animate-fade-in">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <h3 class="text-xl font-semibold text-white mb-3 animate-fade-up">Smooth Transitions</h3>
+        <p class="text-gray-300 animate-fade-up delay-150">Seamless cuts and effects that keep your audience engaged.</p>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="bg-black/60 p-8 rounded-lg border border-gray-700 shadow-lg shadow-black/60 hover:shadow-emerald-500 transition-shadow duration-300" data-aos="fade-up" data-aos-delay="700" data-aos-duration="800">
+        <div class="w-14 h-14 mb-6 flex items-center justify-center bg-emerald-700 rounded-md text-white mx-auto animate-fade-in">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <h3 class="text-xl font-semibold text-white mb-3 animate-fade-up">Color Grading</h3>
+        <p class="text-gray-300 animate-fade-up delay-150">Professional color correction to give your videos a cinematic look.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- ================= PROJECTS ================= -->
+
+<section id="projects" class="relative bg-black text-white py-24 overflow-hidden">
+ <div class="feedback-bg"></div>
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Heading -->
+    <h2 class="text-5xl md:text-5xl text-white font-bold text-center mb-4">
+      My Work
+    </h2>
+
+    <div class="w-20 h-1 mx-auto bg-emerald-400 mb-16 rounded"></div>
+
+    <!-- Category Buttons -->
+    <div class="flex flex-wrap justify-center gap-4 mb-14">
+      <button class="category-btn neon-btn rounded-lg" data-category="all">All</button>
+      <button class="category-btn neon-btn rounded-lg" data-category="wedding">Wedding</button>
+      <button class="category-btn neon-btn rounded-lg" data-category="events">Events</button>
+      <button class="category-btn neon-btn rounded-lg" data-category="reels">Reels</button>
+      <button class="category-btn neon-btn rounded-lg" data-category="housewarming">House Warming</button>
+    </div>
+
+    <!-- Video Grid -->
+    <div id="video-grid" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+      {% for v in videos %}
+      <div class="video-card " data-category="{{ v[1] }}">
+
+        <a href="https://www.youtube.com/watch?v={{ v[3] }}"
+           target="_blank"
+           class="block rounded-xl overflow-hidden bg-gray-900 group shadow-lg">
+
+          <!-- Thumbnail -->
+          <div class="relative aspect-video">
+            <img
+              src="https://img.youtube.com/vi/{{ v[3] }}/hqdefault.jpg"
+              alt="{{ v[2] }}"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+
+            <!-- Overlay -->
+            <div class="absolute inset-0 flex items-center justify-center bg-black/50">
+              <svg class="w-16 h-16 text-white opacity-90" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+          </div>
+
+        </a>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <!-- Show More -->
+    <div class="text-center mt-12">
+      <button id="show-more-btn"
+  class="neon-btn px-6 py-3 rounded-lg font-semibold hidden">
+  Show More
+</button>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= FEEDBACK ================= -->
+
+
+<section id="feedback" class="feedback-section text-neon py-28 overflow-hidden">
+
+  <!-- Parallax Background Image -->
+  <div class="feedback-bg"></div>
+
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <h2 class="text-4xl md:text-5xl font-bold text-center mb-4 ">
+      Client Feedback
+    </h2>
+    <div class="w-20 h-1 mx-auto bg-emerald-300 mb-16 rounded"></div>
+
+    <!-- existing content stays same -->
+
+  
+ 
+    <div class=" relative">
+      <div class="feedback-track   ">
+        {% for f in feedbacks %}
+        <div class="feedback-card">
+          <div class="stars">{% for i in range(f['rating']) %}★{% endfor %}</div
+          <p>{{ f['description'] }}</p>
+          <span>— {{ f['name'] }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="text-center mt-16">
+      <button id="open-feedback" class="neon-btn category-btn   rounded-lg">Add Your Feedback</button>
+    </div>
+  </div>
+</section>
+
+<div id="feedback-modal" class="feedback-modal hidden">
+  <div class="feedback-box">
+    <button type="button" id="close-feedback">×</button>
+    <h3>Add Feedback</h3>
+<form id="feedback-form" action="/submit_feedback" method="POST" class="space-y-4">
+
+  <input type="text" name="name" placeholder="Your Name" required />
+
+  <!-- Star Rating -->
+  <div class="star-rating">
+    <input type="hidden" name="rating" id="rating-value" required>
+    <span data-value="1">★</span>
+    <span data-value="2">★</span>
+    <span data-value="3">★</span>
+    <span data-value="4">★</span>
+    <span data-value="5">★</span>
+  </div>
+
+  <textarea name="description" placeholder="Your Feedback" required></textarea>
+
+  <button type="submit" class="submit-btn">Submit</button>
+</form>
+
+  </div>
+</div>
+<div id="feedback-success" class="success-popup hidden">
+  <div class="success-box">
+    <h4>Thank You!</h4>
+    <p>Your feedback has been submitted and is pending approval.</p>
+    <button id="close-success">OK</button>
+  </div>
+</div>
+<!-- ================= CONTACT ================= -->
+
+
+<section id="contact" class="contact-section text-neon">
+  <div class="feedback-bg"></div>
+  <div class="contact-container">
+
+    <!-- LEFT : CONTACT FORM -->
+    <div class="contact-left" data-aos="fade-right">
+      <h1 class="text-4xl md:text-5xl font-bold text-neon mb-6">
+        Book Your Project
+      </h1>
+
+      <form class="contact-form" method="POST" action="/contact">
+
+        <input type="text" name="name"
+               placeholder="Your full name *" required>
+
+        <input type="tel" name="phone"
+               placeholder="+91 XXXXX XXXXX *" required>
+
+        <input type="email" name="email"
+               placeholder="your.email@example.com *" required>
+
+        <select name="category" required>
+          <option value="">Select video category *</option>
+          <option value="Wedding">Wedding</option>
+          <option value="Events">Events</option>
+          <option value="Reels">Reels</option>
+          <option value="Corporate">Corporate</option>
+        </select>
+
+        <input
+          type="text"
+          id="datepicker"
+          name="date"
+          placeholder="Preferred shoot date *"
+          required
+          style="; color: white; border-radius: 8px;">
+
+        <textarea name="message"
+                  placeholder="Tell me about your project..."
+                  required></textarea>
+
+        <button type="submit" class="submit-btn">
+          Send Enquiry
+        </button>
+
+      </form>
+    </div>
+
+    <!-- RIGHT : INFO / POINTS -->
+  <div class="contact-right" data-aos="fade-left">
+
+  <h4 class="why-title text-3xl">
+    Your Story, Elevated
+  </h4>
+
+  <p class="why-intro">
+    I don’t just edit videos — I craft moments that linger, emotions that speak, and visuals that captivate.
+  </p>
+
+  <div class="why-cards">
+
+    <div class="why-card">
+      <span class="icon">🚀</span>
+      <div>
+        <h4>Impactful Storytelling</h4>
+        <p>Each frame is designed to leave a lasting impression on your audience.</p>
+      </div>
+    </div>
+
+    <div class="why-card">
+      <span class="icon">🎨</span>
+      <div>
+        <h4>Signature Style</h4>
+        <p>A unique blend of creativity and cinematic flair that stands out.</p>
+      </div>
+    </div>
+
+    <div class="why-card">
+      <span class="icon">⚡</span>
+      <div>
+        <h4>Seamless Flow</h4>
+        <p>Transitions, pacing, and rhythm crafted to feel effortless and engaging.</p>
+      </div>
+    </div>
+
+    <div class="why-card">
+      <span class="icon">🌌</span>
+      <div>
+        <h4>Memorable Experience</h4>
+        <p>Not just videos — immersive experiences that your audience remembers.</p>
+      </div>
+    </div>
+
+  </div>
+
+ <!-- <p class="why-footer">
+    Let’s transform your vision into cinematic moments that speak louder than words.
+  </p>-->
+
+</div>
+
+</section>
+
+
+<a href="https://wa.me/91XXXXXXXXXX" target="_blank" class="whatsapp-float">
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+</a>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="site-footer text-neon">
+  <div class="footer-container">
+
+    <!-- Left -->
+    <div class="footer-left">
+      <h3>Pixel Palatte</h3>
+      <p>
+        Cinematic visuals, powerful storytelling, and creative direction.
+        Let’s create something unforgettable together.
+      </p>
+    </div>
+
+    <!-- Center -->
+    <div class="footer-center">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#feedback">Feedback</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Right -->
+    <div class="footer-right">
+      <h4>Follow Me</h4>
+
+      <div class="footer-social">
+        <a href="https://instagram.com/yourprofile" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+        </a>
+
+        <a href="https://youtube.com/@yourchannel" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+        </a>
+
+        <a href="https://linkedin.com/in/yourprofile" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/145/145807.png" alt="LinkedIn">
+        </a>
+        <a href="mailto:demo@gmail.com">
+      <img src="https://cdn-icons-png.flaticon.com/512/281/281769.png" alt="Gmail">
+     
+    </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom -->
+  <div class="footer-bottom">
+    © 2025 Shayan CS. All rights reserved.
+  </div>
+</footer>
+<!-- ================================================= -->
+<!-- ================= ALL SCRIPTS ================== -->
+<!-- ================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>
