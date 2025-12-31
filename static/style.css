@@ -1213,7 +1213,7 @@ html, body {
   }
 
   section.h-screen .grid {
-    grid-template-columns: 1fr !important;
+ 
     justify-items: center;
     align-items: center;
     text-align: center;
@@ -1240,6 +1240,11 @@ html, body {
   section.h-screen a {
     margin-left: auto;
     margin-right: auto;
+  }  
+  
+  .glitch::before,
+  .glitch::after {
+    display: none;
   }
  
   /* ======================================================
